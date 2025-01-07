@@ -12,11 +12,11 @@ public class ChatServerMain {
     ServerSocket server = chatServer.createServer(PORT);
 
     System.out.println("Server started on port " + PORT);
-    System.out.println("Waiting for connections...");
+    System.out.println("Waiting for connections...\n");
 
     while (true) {
       try {
-        new ClientHandler(server.accept()).run();
+        new ClientThread(server.accept()).start();
       } catch (IOException e) {
         throw new RuntimeException("Failed to connect client", e);
       }

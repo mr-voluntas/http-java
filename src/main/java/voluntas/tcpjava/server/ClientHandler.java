@@ -5,27 +5,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-class ClientHandler implements Runnable {
+class ClientThread extends Thread {
 
   private Socket clientSocket;
   private BufferedReader clientInput;
 
-  ClientHandler(Socket connection) {
+  ClientThread(Socket connection) {
     this.clientSocket = connection;
   }
 
   @Override
   public void run() {
-    System.out.println("New client connected: " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
     try {
       clientInput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+      String username = clientInput.readLine();
+
+      System.out.println("New client connected: " + username);
+
       while (true) {
-        System.out.println("Message: " + clientInput.readLine());
+        System.out.println(username + ": " + clientInput.readLine());
       }
     } catch (IOException e) {
-      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
+
   }
 
 }

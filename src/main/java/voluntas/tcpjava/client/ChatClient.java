@@ -13,12 +13,13 @@ public class ChatClient {
         Scanner userInput = new Scanner(System.in);
         PrintWriter out = new PrintWriter(clientConnection.getOutputStream(), true);) {
 
+      System.out.print("Please enter your username: ");
+
+      out.println(userInput.nextLine());
+
       while (true) {
         System.out.print("New message: ");
-
-        String newMessage = userInput.nextLine();
-
-        out.println(newMessage);
+        out.println(userInput.nextLine());
       }
 
     } catch (IOException e) {
