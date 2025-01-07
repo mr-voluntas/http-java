@@ -3,13 +3,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>voluntas.httpjava</groupId>
-  <artifactId>httpjava</artifactId>
+  <groupId>voluntas.tcpjava</groupId>
+  <artifactId>tcpjava</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>httpjava</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>tcpjava</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

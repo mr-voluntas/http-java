@@ -1,45 +1,19 @@
-This file is for documenting my learnings as the project progresses, a place to store notes and my todo list.
+
+TCP Chat App.
+
+This will be a basic TCP chat app to learn the basics of TCP. This project will server as a basis for more complex projects later on...
 
 
-What I currently know...
-    - HTTP is built upon TCP
-    - HTTP is a network protocol
-        - being honest ive never though about it to much.. I just know its used for          rest apis which return data in different formats, json & xml for example 
-    - I have seem some example code on how libraries like express might be layed out
-
-
-Todo:
-  - Look into the HTTP protocol and understand this more
-  - Quick POC for TCP server, this will be used later on
-  - Find out how to setup a basic HTTP server with TCP
-  - Checkpoint for digest
-
-
-HTTP investigation: 
-
-Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
-
-"protocol = Set of rules on how data is exchanged within or between computers. Communication of data requires that devices agree on the format of data being exchanged. The set of rules that defines a format is called a protocol"
-
-- Web protocol for fetching resources like HTML
-- Foundation for any data exchange on the Web
-- Client server protocol
-- Clients and servers usually communicate via in individual messages
-- Requests and Responses
-- TCP or over a TLS-encryped TCP connection
-- Proxies sit between the client and server (caches and gateways for example)
-  - Transparent proxy: forward the request without altering
-  - Non-transparent: alter the request in some way before forwarding to server
-- Proxy types:
-  - authentication
-  - caching
-  - filtering (anti-virus scans or parental controls)
-  - logging
-  - load balancing
-- HTTP/1.0 used a separate connection for each request/response pair. This is less efficent than sharing a single TCP connection when multiple requests are sent in close succession
-- HTTP/2 used multiplexing of messages over a single connection. This was done to keep the connection warm and more efficent
-- HTTP/2 embeds HTTP messages into frames to improve on performance
-
-Multiplexing = This is when a request/response is broken down into multiple frames and sent down a TCP connection along with other frames for different request/response pairs. Request/Response pairs are called streams. These frames contain headers and payloads, headers are 8kb and payloads are usally 16kb. The payload within a frame is called a chunk (chunk of payload). The chunks of the request/response payload are sent individually and reassembled on the other end, the frame containing the last chunk will contain an END_STREAM flag in the header to denote its the last frame in the stream. So... the payload is converted to bytesand trimmed into multiple 16kb chunks... sent over TCP within frames and concatinated back together in order on the recieving side. Think of this like a road (TCP connection) containing multiple trucks (streams), and each truck is delivering parts (frames) for different orders (req/res), once trucks have delivered all the parts for an order it can be classed as delivered (END_STREAM flag), the parts for the order can then be assembled (concatinating payload bytes)     
-
-
+Requirments:
+  Client:
+  - can connect, disconnect and reconnect to the server.
+  - can send messages to the server.
+  - can recieve messages from other clients.
+  - see message history when connecting and reconnecting.
+  Server:
+  - save messages.
+  - relay messages to all connected clients.
+  - track connected clients.
+  Functions:
+  - list connected clients.
+  - disconnect.
