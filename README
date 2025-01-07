@@ -3,7 +3,7 @@ Basic TCP chat server written in Java.
 Requirments:
   Client Side:
   - can connect, disconnect and reconnect to the server.
-  - can send messages to the server.
+  DONE - can send messages to the server.
   - can recieve messages from other clients.
   - can request message history.
   Server Side:

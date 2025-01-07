@@ -14,13 +14,25 @@ public class ChatClient {
         PrintWriter out = new PrintWriter(clientConnection.getOutputStream(), true);) {
 
       System.out.print("Please enter your username: ");
-
       out.println(userInput.nextLine());
 
-      while (true) {
-        System.out.print("New message: ");
-        out.println(userInput.nextLine());
+      boolean connected = true;
+
+      while (connected) {
+
+        System.out.print(": ");
+        String newMessage = userInput.nextLine();
+
+        if (newMessage.equals("quit")) {
+          out.println("quit");
+          connected = false;
+        } else {
+          out.println(newMessage);
+        }
+
       }
+
+      System.out.println("Disconnected from server");
 
     } catch (IOException e) {
       e.printStackTrace();

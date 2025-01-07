@@ -24,11 +24,26 @@ class ClientThread extends Thread {
 
       System.out.println("New client connected: " + username);
 
-      while (true) {
-        System.out.println(username + ": " + clientInput.readLine());
+      boolean clientConnected = true;
+      while (clientConnected) {
+        try {
+          String clientMessage = clientInput.readLine();
+          if (clientMessage.equals("quit")) {
+            clientConnected = false;
+          } else {
+            System.out.println(username + ": " + clientMessage);
+          }
+        } catch (NullPointerException e) {
+          clientConnected = false;
+        }
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+      clientSocket.close();
+      System.out.println(username + " disconnected");
+      interrupt();
+    } catch (
+
+    IOException e) {
+      throw new RuntimeException(e);
     }
 
   }

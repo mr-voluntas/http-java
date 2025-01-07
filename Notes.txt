@@ -17,3 +17,16 @@ Requirments:
   Functions:
   - list connected clients.
   - disconnect.
+
+
+  TODO:
+  - command for disconnecting
+  - server to send messages to all connected clients
+
+
+  IDEAS:
+  - Add in a count for connected clients
+  - Send an object to the server which will create standardised communication.
+    - username
+    - message
+    - command (disconnect | direct message | chat rooms | join chat room | disconnect from chatroom ) 
