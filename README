@@ -1,0 +1,21 @@
+Basic TCP chat server written in Java.
+
+Requirments:
+  Client Side:
+  - can connect, disconnect and reconnect to the server.
+  - can send messages to the server.
+  - can recieve messages from other clients.
+  - can request message history.
+  Server Side:
+  - save client messages.
+  - relay messages to all connected clients.
+  - track connected clients.
+  CLI functions:
+  - list connected clients.
+  - connect / disconnect to server.
+  - clear chat.
+  - retrieve chat history (10/25/50/100 messages).
+
+Possible enhancements:
+  - chat rooms
+  - private chat
