@@ -6,27 +6,36 @@ This will be a basic TCP chat app to learn the basics of TCP. This project will 
 
 Requirments:
   Client:
-  - can connect, disconnect and reconnect to the server.
-  - can send messages to the server.
-  - can recieve messages from other clients.
+X - can connect, disconnect and reconnect to the server.
+X - can send messages to the server.
+X - can recieve messages from other clients.
   - see message history when connecting and reconnecting.
   Server:
   - save messages.
-  - relay messages to all connected clients.
-  - track connected clients.
+X - relay messages to all connected clients.
+X - track connected clients.
   Functions:
   - list connected clients.
   - disconnect.
 
 
   TODO:
-  - command for disconnecting
-  - server to send messages to all connected clients
+X - command for disconnecting
+X - server to send messages to all connected clients
+    - This requires some refactoring to get working.
+      - Client: main thread to send messages to the server. nested thread to read incoming messages.
+      - Server: create a thread safe list for connected clients, broadcast incomming messages to all other clients. Create a thread to accept clients and a nested thread to broadcast to all connected clients.
+  - refactor
 
 
   IDEAS:
-  - Add in a count for connected clients
+  - Add in a count for connected clients.
   - Send an object to the server which will create standardised communication.
     - username
     - message
-    - command (disconnect | direct message | chat rooms | join chat room | disconnect from chatroom ) 
+    - command (disconnect | direct message | chat rooms | join chat room | disconnect from chatroom ).
+
+
+
+
+
