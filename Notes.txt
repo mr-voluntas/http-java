@@ -16,7 +16,7 @@ X - relay messages to all connected clients.
 X - track connected clients.
   Functions:
   - list connected clients.
-  - disconnect.
+X - disconnect.
 
 
   TODO:
@@ -25,15 +25,17 @@ X - server to send messages to all connected clients
     - This requires some refactoring to get working.
       - Client: main thread to send messages to the server. nested thread to read incoming messages.
       - Server: create a thread safe list for connected clients, broadcast incomming messages to all other clients. Create a thread to accept clients and a nested thread to broadcast to all connected clients.
-  - refactor
+X - refactor
+X   - client
+X   - server
 
 
   IDEAS:
   - Add in a count for connected clients.
-  - Send an object to the server which will create standardised communication.
+  - Send an object to the server which will create standardised communication (custom protocol)
     - username
     - message
-    - command (disconnect | direct message | chat rooms | join chat room | disconnect from chatroom ).
+    - command (disconnect | direct message | chat rooms | join chat room | disconnect from chatroom )
 
 
 

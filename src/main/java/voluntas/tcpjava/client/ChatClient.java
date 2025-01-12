@@ -10,48 +10,61 @@ import java.util.Scanner;
 
 public class ChatClient {
 
-  private final String ipAddress;
-  private final int port;
+  private Scanner userInput;
+  private Socket clientConnection;
+  private BufferedReader clientConnectionIn;
+  private PrintWriter clientConnectionOut;
+  private String username;
+  private MessageListener messageListenerThread;
 
   public ChatClient(String ipAddress, int port) {
-    this.ipAddress = ipAddress;
-    this.port = port;
-  }
-
-  public void start() {
-    try (var userInput = new Scanner(System.in);) {
-
-      System.out.print("Please enter a username: ");
-      String username = userInput.nextLine();
-
-      try (var clientConnection = new Socket(ipAddress, port);
-          var clientConnectionIn = new BufferedReader(new InputStreamReader(clientConnection.getInputStream()));
-          var clientConnectionOut = new PrintWriter(clientConnection.getOutputStream(), true);) {
-
-        clientConnectionOut.println(username + " has connected");
-
-        new Thread(new MessageListener(clientConnectionIn)).start();
-
-        while (true) {
-          String newMessage = userInput.nextLine();
-          if (newMessage.equals("quit")) {
-            clientConnectionOut.println("quit");
-            break;
-          }
-          clientConnectionOut.println(username + ": " + newMessage);
-        }
-
-      } catch (ConnectException e) {
-        throw new RuntimeException("Failed to connect to the server. Please check server is running", e);
-      } catch (IOException e) {
-        throw new RuntimeException("Failed to start client", e);
-      } finally {
-        System.out.printf("Client connected to server (%s:%d)\n", ipAddress, port);
-      }
+    try {
+      this.clientConnection = new Socket(ipAddress, port);
+      this.clientConnectionIn = new BufferedReader(new InputStreamReader(clientConnection.getInputStream()));
+      this.clientConnectionOut = new PrintWriter(clientConnection.getOutputStream(), true);
+    } catch (ConnectException e) {
+      throw new RuntimeException("Client failed to connect to the server. Please check server is running", e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 
-  private class MessageListener implements Runnable {
+  public void start() {
+    userInput = new Scanner(System.in);
+    System.out.print("Please enter a username: ");
+    username = userInput.nextLine();
+
+    clientConnectionOut.println(username + " has connected");
+
+    // Listens for messages sent from the server.
+    messageListenerThread = new MessageListener(clientConnectionIn);
+    messageListenerThread.start();
+
+    while (true) {
+      String newMessage = userInput.nextLine();
+      if (newMessage.equals("/quit")) {
+        clientConnectionOut.println("/quit");
+        break;
+      }
+      clientConnectionOut.println(username + ": " + newMessage);
+    }
+
+    disconnectFromServer();
+
+  }
+
+  private void disconnectFromServer() {
+    try {
+      clientConnection.close();
+      messageListenerThread.interrupt();
+      userInput.close();
+      System.out.println("Disconnected from server");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to close client connection", e);
+    }
+  }
+
+  private class MessageListener extends Thread {
     private BufferedReader clientConnectionIn;
 
     MessageListener(BufferedReader clientConnectionIn) {
@@ -66,9 +79,12 @@ public class ChatClient {
           System.out.println(messageFromServer);
         }
       } catch (IOException e) {
-        throw new RuntimeException("Error getting message from the server.", e);
+        if (!e.getMessage().equalsIgnoreCase("Socket closed")) {
+          throw new RuntimeException();
+        }
       }
     }
+
   }
 
 }
