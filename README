@@ -2,20 +2,22 @@ Basic TCP chat server written in Java.
 
 Requirments:
   Client Side:
-  - can connect, disconnect and reconnect to the server.
-  DONE - can send messages to the server.
-  - can recieve messages from other clients.
-  - can request message history.
+  Done - can connect, disconnect and reconnect to the server.
+  Done - can send messages to the server.
+  Done - can recieve messages from other clients.
+  Removed from scope - can request message history.
   Server Side:
-  - save client messages.
-  - relay messages to all connected clients.
-  - track connected clients.
+  Removed from scope - save client messages.
+  Done - relay messages to all connected clients.
+  Done - track connected clients.
   CLI functions:
-  - list connected clients.
-  - connect / disconnect to server.
-  - clear chat.
-  - retrieve chat history (10/25/50/100 messages).
+  Removed from scope - list connected clients.
+  Done - connect / disconnect to server.
+  Removed from scope - clear chat.
+  Removed from scope - retrieve chat history (10/25/50/100 messages).
 
 Possible enhancements:
   - chat rooms
   - private chat
+
+  Scope was reduced. main project goal was to learn about TCP and Threads.
