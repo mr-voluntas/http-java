@@ -32,12 +32,27 @@ X   - server
 
   IDEAS:
   - Add in a count for connected clients.
-  - Send an object to the server which will create standardised communication (custom protocol)
+X  - Send an object to the server which will create standardised communication (custom protocol)
     - username
     - message
     - command (disconnect | direct message | chat rooms | join chat room | disconnect from chatroom )
 
 
+Final notes:
+  - nice client/server setup which allowed me to play around with learning the basics of TCP.
+  - practice implementing some different design patterns (facade, factory and strategy).
+  - practice with creating threads to handle tasks in parallel.
+  - I did have fun learning about TCP. I think the next project will use TCP again.
+  - Maybe during the next project I will aim to learn more advanced TCP or threads? or both...
+  - I felt like I changed the design many times, this caused me to keep changing the code.
+  - I think before starting a project spend more time planning and thinking about implementation, i could also check with GPT on things I may want to consider and the challenges I may face.
+  - I would like to do more stuff with data.. saving, getting, sorting and manipulating.
+  - Got boring at the end. I just wanted to finish and move on to something new.
 
+  TLDR:
+  - Learnt about TCP and Threads.
+  - Learnt some design patterns.
+  - Need to plan more.
+  - Got bored, need a more interesting concept.
 
 

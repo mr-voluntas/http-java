@@ -5,15 +5,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.google.gson.Gson;
+
+import voluntas.tcpjava.shared.Client;
+import voluntas.tcpjava.shared.MessageProcessorMain;
+
 public class ChatServer {
 
   private int port;
-  private CopyOnWriteArrayList<Socket> clients;
+  private CopyOnWriteArrayList<Client> connectedClients;
   private ServerSocket server;
+  private Gson gson;
 
   public ChatServer(int port) {
     this.port = port;
-    this.clients = new CopyOnWriteArrayList<>();
+    this.connectedClients = new CopyOnWriteArrayList<>();
+    this.gson = new Gson();
   }
 
   public void start() {
@@ -34,11 +41,13 @@ public class ChatServer {
   }
 
   private void connectClients() {
+    MessageProcessorMain messageProcessor = new MessageProcessorMain(connectedClients, gson);
     while (true) {
       try {
-        Socket newClient = server.accept();
-        clients.add(newClient);
-        new ClientThread(newClient, clients).start();
+        Socket newClientConnection = server.accept();
+        Client newClient = new Client(newClientConnection);
+        connectedClients.add(newClient);
+        new ClientThread(newClient, messageProcessor, gson).start();
       } catch (IOException e) {
         throw new RuntimeException("Failed to connect client", e);
       }
